@@ -5,7 +5,7 @@ import CreateArea from "./CreateArea";
 import Note from "./Note";
 
 
-function App (props){
+function App (){
   
 
     const [notes, setNotes]= useState([]);
