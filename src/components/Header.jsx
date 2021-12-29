@@ -5,7 +5,7 @@ function Header (){
     return(
         <header>
             <h1>
-            <HighlightIcon/>Keeper</h1>
+            <HighlightIcon/>Note App</h1>
         </header>
     );
     
