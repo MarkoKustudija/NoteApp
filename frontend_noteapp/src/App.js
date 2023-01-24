@@ -1,8 +1,11 @@
 import { useState } from "react";
-import "./App.css";
+import { Redirect, Route, Switch } from "react-router-dom";
+// import "./App.css";
 import Header from "./components/layout/Header";
-import NoteForm from "./components/NoteForm";
-import NoteList from "./components/NoteList";
+import NoteForm from "./components/notes/NoteForm";
+import NoteList from "./components/notes/NoteList";
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -24,11 +27,34 @@ function App() {
   };
 
   return (
-    <div>
-      <Header />
-      <NoteForm onAdd={addNoteHandler} />
-      <NoteList notes={notes} onDelete={deleteNote} />
-    </div>
+    
+      <Header>
+        <Switch>
+
+
+        <Route path="/" exact>
+            <Redirect to="/home" />
+          </Route>
+
+          <Route path="/home" exact>
+            <Home />
+          </Route>
+
+        
+          <Route path="/new-note" exact>
+            <NoteForm onAdd={addNoteHandler} />
+          </Route>
+
+          <Route path="/notes" exact>
+            <NoteList notes={notes} onDelete={deleteNote} />
+          </Route>
+
+          <Route path="*" >
+            <NotFound />
+          </Route>
+
+        </Switch>
+      </Header>
   );
 }
 

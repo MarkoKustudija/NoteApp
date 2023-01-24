@@ -1,5 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { Prompt } from "react-router-dom";
+import classes from "./NoteForm.module.css";
 
 const NoteForm = (props) => {
   const [isEntering, setIsEntering] = useState(false);
@@ -30,8 +31,8 @@ const NoteForm = (props) => {
   return (
     <Fragment>
       <Prompt when={isEntering} message={(location) => message} />
-      <form onSubmit={sumbitNoteHandler} onFocus={formFocusHandler}>
-        <div>
+      <form onSubmit={sumbitNoteHandler} onFocus={formFocusHandler} className={classes.form}>
+        <div >
           <input
             type="text"
             id="title"
