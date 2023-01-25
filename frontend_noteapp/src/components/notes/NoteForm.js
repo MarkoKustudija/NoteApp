@@ -45,6 +45,8 @@ const NoteForm = (props) => {
             type="text"
             id="content"
             ref={contentInputRef}
+            rows = "3"
+            maxLength="280"
             placeholder="Content ..."
           />
         </div>

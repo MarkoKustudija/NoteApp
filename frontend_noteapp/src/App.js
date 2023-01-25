@@ -39,15 +39,14 @@ function App() {
     localStorage.setItem("delete", JSON.stringify(isNoteDeleted));
   }, [isEntering, history, notes, isThereNotes, isNoteDeleted]);
 
-  // DELETE 
+  // DELETE
   useEffect(() => {
     if (isNoteDeleted) {
       localStorage.removeItem("delete");
     }
-    if(notes < 1){
-      localStorage.removeItem('isThereNotes');
+    if (notes < 1) {
+      localStorage.removeItem("isThereNotes");
     }
-
   }, [isNoteDeleted, notes]);
 
   ////////////////////////////////
@@ -74,41 +73,41 @@ function App() {
   // localStorage.clear();
 
   return (
-    <Header>
-      <Switch>
-        {!isThereNotes && (
-          <Route path="/home" exact>
-            <NoNotesFound />
-          </Route>
-        )}
+      <Header>
+          <Switch>
+            {!isThereNotes && (
+              <Route path="/home" exact>
+                <NoNotesFound />
+              </Route>
+            )}
 
-        {(isNoteDeleted && notes < 1) && (
-          <Route path="/home" exact>
-            <NoNotesFound />
-          </Route>
-        )}
+            {isNoteDeleted && notes < 1 && (
+              <Route path="/home" exact>
+                <NoNotesFound />
+              </Route>
+            )}
 
-        <Route path="/" exact>
-          <Redirect to="/home" />
-        </Route>
+            <Route path="/" exact>
+              <Redirect to="/home" />
+            </Route>
 
-        <Route path="/home" exact>
-          <Home />
-        </Route>
+            <Route path="/home" exact>
+              <Home />
+            </Route>
 
-        <Route path="/new-note" exact>
-          <NoteForm onAdd={addNoteHandler} />
-        </Route>
+            <Route path="/new-note" exact>
+              <NoteForm onAdd={addNoteHandler} />
+            </Route>
 
-        <Route path="/notes" exact>
-          <NoteList notes={notes} onDelete={deleteNote} />
-        </Route>
+            <Route path="/notes" exact>
+              <NoteList notes={notes} onDelete={deleteNote} />
+            </Route>
 
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
-    </Header>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+      </Header>
   );
 }
 
