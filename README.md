@@ -6,4 +6,4 @@ Frontend and backend are note yet connected.
 It's still in progres...
 </p>
  
-![Uploading Screenshot 2023-01-25 at 15.51.21.png…]()
+<img width="1335" alt="noteapp" src="https://user-images.githubusercontent.com/81296935/214597136-3fcdfbe1-f0d3-4cee-befd-2af4ce839522.png">
