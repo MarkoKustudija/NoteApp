@@ -1,5 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Prompt } from "react-router-dom";
+import Card from "../UI/Card";
+import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./NoteForm.module.css";
 
 const NoteForm = (props) => {
@@ -30,31 +32,42 @@ const NoteForm = (props) => {
 
   return (
     <Fragment>
-      <Prompt when={isEntering} message={(location) => message} />
-      <form onSubmit={sumbitNoteHandler} onFocus={formFocusHandler} className={classes.form}>
-        <div >
-          <input
-            type="text"
-            id="title"
-            ref={titleInputRef}
-            placeholder="Title ..."
-          />
-        </div>
-        <div>
-          <textarea
-            type="text"
-            id="content"
-            ref={contentInputRef}
-            rows = "3"
-            maxLength="280"
-            placeholder="Content ..."
-          />
-        </div>
+      <Card>
+        <Prompt when={isEntering} message={(location) => message} />
+        <form
+          onSubmit={sumbitNoteHandler}
+          onFocus={formFocusHandler}
+          className={classes.form}
+        >
+          {props.isLoading && (
+            <div className={classes.loading}>
+              <LoadingSpinner />
+            </div>
+          )}
+          <div>
+            <input
+              type="text"
+              id="title"
+              ref={titleInputRef}
+              placeholder="Title ..."
+            />
+          </div>
+          <div>
+            <textarea
+              type="text"
+              id="content"
+              ref={contentInputRef}
+              rows="3"
+              maxLength="280"
+              placeholder="Content ..."
+            />
+          </div>
 
-        <div>
-          <button onClick={finishEnteringHandler}> Add</button>
-        </div>
-      </form>
+          <div>
+            <button onClick={finishEnteringHandler}> Add</button>
+          </div>
+        </form>
+      </Card>
     </Fragment>
   );
 };

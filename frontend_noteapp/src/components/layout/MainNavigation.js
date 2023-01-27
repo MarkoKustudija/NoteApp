@@ -6,7 +6,7 @@ const MainNavigation = () => {
   return (
     <Fragment>
       <header className={classes.header}>
-        <div className={classes.logo}> Note App </div>
+        <div className={classes.logo}> NoteApp </div>
         <nav className={classes.nav}>
           <ul>
             <li>
