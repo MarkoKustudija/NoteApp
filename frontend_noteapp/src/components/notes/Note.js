@@ -6,6 +6,7 @@ const Note = (props) => {
       <h1>{props.title}</h1>
       <p>{props.content}</p>
       <button onClick={() => props.onDelete(props.id)}> Delete </button>
+      <button onClick={() => props.onEdit(props.id)}> Edit </button>
     </div>
   );
 };

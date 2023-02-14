@@ -1,7 +1,7 @@
 import { Fragment, useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
-import { deleteNote } from "../../lib/api";
+import { deleteNote, editNote } from "../../lib/api";
 import Note from "./Note";
 
 const NoteList = (props) => {
@@ -13,6 +13,11 @@ const NoteList = (props) => {
   const deleteNoteHandler = (noteId) => {
     sendRequest(noteId);
   };
+
+  const editNoteHandler = ( noteId) => {
+    history.push(`/update-note/${noteId}`)
+    console.log('edited', noteId);
+  }
 
   useEffect(() => {
 
@@ -36,6 +41,7 @@ const NoteList = (props) => {
               title={note.title}
               content={note.content}
               onDelete={deleteNoteHandler}
+              onEdit = {editNoteHandler}
             />
           );
         })}

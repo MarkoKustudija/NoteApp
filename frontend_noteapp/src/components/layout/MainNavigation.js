@@ -1,8 +1,11 @@
 import { Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
+
+  const {id}  = useParams();
+
   return (
     <Fragment>
       <header className={classes.header}>
@@ -24,6 +27,12 @@ const MainNavigation = () => {
                 New Note
               </NavLink>
             </li>
+
+            {/* <li>
+              <NavLink to ="/update-note/:id" activeClassName={classes.active}>
+                Update Note
+              </NavLink>
+            </li> */}
           </ul>
         </nav>
       </header>

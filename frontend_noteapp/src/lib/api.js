@@ -1,3 +1,5 @@
+
+
 export async function getAllNotes() {
   const response = await fetch("http://localhost:8080/api/notes");
   const data = await response.json();
@@ -57,6 +59,7 @@ export async function deleteNote(noteId) {
 
   console.log(response);
   console.log(noteId);
-  
 }
+
+
 

@@ -4,6 +4,8 @@ import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import AllNotes from "./pages/AllNotes";
 import NewNote from "./pages/NewNote";
+// import EditNote from './pages/EditNote';
+import UpdateNote from "./components/notes/UpdateNote";
 
 function App() {
   // const [notes, setNotes] = useState(
@@ -92,9 +94,15 @@ function App() {
           <NewNote />
         </Route>
 
+        <Route path="/update-note/:id" exact>
+          <UpdateNote />
+        </Route>
+
         <Route path="/notes" exact>
           <AllNotes />
         </Route>
+
+
 
         <Route path="*">
           <NotFound />
