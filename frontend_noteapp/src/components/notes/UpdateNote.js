@@ -1,9 +1,11 @@
-
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Prompt, useHistory, useParams } from "react-router-dom";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./UpdateNote.module.css";
+
+let message =
+"Are you shure you want to leave the form?";
 
 const UpdateNote = (props) => {
   const [isEntering, setIsEntering] = useState(false);
@@ -13,8 +15,8 @@ const UpdateNote = (props) => {
   const contentInputRef = useRef();
   const history = useHistory();
 
+  // useEffect(() => {
 
-  useEffect(() => {
     async function updateNote() {
       const requestOptions = {
         method: "PUT",
@@ -32,14 +34,14 @@ const UpdateNote = (props) => {
       setNoteId(data.id);
     }
 
-    updateNote();
-  
-  });
-
+ 
+  // });
 
   const sumbitNoteHandler = (event) => {
     event.preventDefault();
-    history.push('/notes');
+    history.push("/notes");
+    updateNote();
+
     // const titleRef = titleInputRef.current.value;
     // const contentRef = contentInputRef.current.value;
     // props.onEdit({ title: titleRef, content: contentRef });
@@ -51,11 +53,12 @@ const UpdateNote = (props) => {
   };
 
   const finishEnteringHandler = () => {
+    
     setIsEntering(false);
   };
 
-  let message =
-    "Are you shure you want to leave the form? All your data will be lost!!!";
+ 
+
 
   return (
     <Fragment>

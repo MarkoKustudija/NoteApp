@@ -1,7 +1,7 @@
 import { Fragment, useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
-import { deleteNote, editNote } from "../../lib/api";
+import { deleteNote } from "../../lib/api";
 import Note from "./Note";
 
 const NoteList = (props) => {
@@ -14,21 +14,20 @@ const NoteList = (props) => {
     sendRequest(noteId);
   };
 
-  const editNoteHandler = ( noteId) => {
-    history.push(`/update-note/${noteId}`)
-    console.log('edited', noteId);
-  }
+  const editNoteHandler = (noteId) => {
+    history.push(`/update-note/${noteId}`);
+
+    console.log("edited", noteId);
+  };
 
   useEffect(() => {
-
     if (status === "completed") {
       history.push("/home");
     }
-    if (status !== "completed") {
-      history.push("/notes");
-    }
+    // if (status === "pending") {
+    //   history.push("/notes");
+    // }
   }, [status, history]);
-  
 
   return (
     <Fragment>
@@ -41,7 +40,7 @@ const NoteList = (props) => {
               title={note.title}
               content={note.content}
               onDelete={deleteNoteHandler}
-              onEdit = {editNoteHandler}
+              onEdit={editNoteHandler}
             />
           );
         })}

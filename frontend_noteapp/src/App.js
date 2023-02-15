@@ -82,14 +82,6 @@ function App() {
           <Redirect to="/home" />
         </Route>
 
-        {/* <Route path="/new-note" exact>
-              <NoteForm onAdd={addNoteHandler} />
-            </Route> */}
-
-        {/* <Route path="/notes" exact>
-              <NoteList notes={notes} onDelete={deleteNote} />
-            </Route> */}
-
         <Route path="/new-note" exact>
           <NewNote />
         </Route>
@@ -101,8 +93,6 @@ function App() {
         <Route path="/notes" exact>
           <AllNotes />
         </Route>
-
-
 
         <Route path="*">
           <NotFound />
