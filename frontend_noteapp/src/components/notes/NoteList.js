@@ -16,8 +16,6 @@ const NoteList = (props) => {
 
   const editNoteHandler = (noteId) => {
     history.push(`/update-note/${noteId}`);
-
-    console.log("edited", noteId);
   };
 
   useEffect(() => {

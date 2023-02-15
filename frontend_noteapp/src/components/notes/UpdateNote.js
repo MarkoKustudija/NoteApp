@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Fragment, useRef, useState } from "react";
 import { Prompt, useHistory, useParams } from "react-router-dom";
 import Card from "../UI/Card";
@@ -8,6 +9,7 @@ let message =
 "Are you shure you want to leave the form?";
 
 const UpdateNote = (props) => {
+
   const [isEntering, setIsEntering] = useState(false);
   const { id } = useParams();
   const [noteId, setNoteId] = useState(id);
@@ -17,7 +19,7 @@ const UpdateNote = (props) => {
 
   // useEffect(() => {
 
-    async function updateNote() {
+   async function updateNote() {
       const requestOptions = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -34,13 +36,15 @@ const UpdateNote = (props) => {
       setNoteId(data.id);
     }
 
+    // updateNote();
+
  
   // });
 
   const sumbitNoteHandler = (event) => {
     event.preventDefault();
-    history.push("/notes");
     updateNote();
+    history.push("/notes");
 
     // const titleRef = titleInputRef.current.value;
     // const contentRef = contentInputRef.current.value;
@@ -53,7 +57,6 @@ const UpdateNote = (props) => {
   };
 
   const finishEnteringHandler = () => {
-    
     setIsEntering(false);
   };
 
