@@ -6,6 +6,8 @@ import AllNotes from "./pages/AllNotes";
 import NewNote from "./pages/NewNote";
 // import EditNote from './pages/EditNote';
 import UpdateNote from "./components/notes/UpdateNote";
+import NoteProvider from "./store/NoteProvider";
+// import EditNote from "./pages/EditNote";
 
 function App() {
   // const [notes, setNotes] = useState(
@@ -72,33 +74,36 @@ function App() {
   // localStorage.clear();
 
   return (
-    <Header>
-      <Switch>
-        <Route path="/home" exact>
-          <Home />
-        </Route>
+    <NoteProvider>
+      <Header>
+        <Switch>
+          <Route path="/home" exact>
+            <Home />
+          </Route>
 
-        <Route path="/" exact>
-          <Redirect to="/home" />
-        </Route>
+          <Route path="/" exact>
+            <Redirect to="/home" />
+          </Route>
 
-        <Route path="/new-note" exact>
-          <NewNote />
-        </Route>
+          <Route path="/new-note" exact>
+            <NewNote />
+          </Route>
 
-        <Route path="/update-note/:id" exact>
-          <UpdateNote />
-        </Route>
+          <Route path="/update-note/:id" exact>
+            <UpdateNote />
+            {/* <EditNote /> */}
+          </Route>
 
-        <Route path="/notes" exact>
-          <AllNotes />
-        </Route>
+          <Route path="/notes" exact>
+            <AllNotes />
+          </Route>
 
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
-    </Header>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Header>
+    </NoteProvider>
   );
 }
 

@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Fragment, useRef, useState } from "react";
 import { Prompt, useHistory, useParams } from "react-router-dom";
+import useHttp from "../../hooks/use-http";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./UpdateNote.module.css";
 
 let message =
-"Are you shure you want to leave the form?";
+  "Are you shure you want to leave the form?";
 
 const UpdateNote = (props) => {
 
@@ -17,9 +18,9 @@ const UpdateNote = (props) => {
   const contentInputRef = useRef();
   const history = useHistory();
 
-  // useEffect(() => {
+  
 
-   async function updateNote() {
+    async function updateNote() {
       const requestOptions = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -36,19 +37,26 @@ const UpdateNote = (props) => {
       setNoteId(data.id);
     }
 
-    // updateNote();
+  const {sendRequest, status} = useHttp(updateNote);
 
- 
-  // });
+    useEffect(() => {
+        if(status === 'completed'){
+            history.push('/notes')
+        }
+    },[status, history])
+
+
 
   const sumbitNoteHandler = (event) => {
     event.preventDefault();
-    updateNote();
-    history.push("/notes");
+    sendRequest()
+    // history.push('/notes');
+    // const enteredTitle = titleInputRef.current.value;
+    // const enteredContent = contentInputRef.current.value;
 
-    // const titleRef = titleInputRef.current.value;
-    // const contentRef = contentInputRef.current.value;
-    // props.onEdit({ title: titleRef, content: contentRef });
+    // props.onEdit({title: enteredTitle, content: enteredContent })
+
+   
   };
 
   const formFocusHandler = () => {
@@ -60,8 +68,7 @@ const UpdateNote = (props) => {
     setIsEntering(false);
   };
 
- 
-
+  
 
   return (
     <Fragment>

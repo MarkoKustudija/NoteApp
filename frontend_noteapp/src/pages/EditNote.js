@@ -1,9 +1,9 @@
 
-// import { useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import UpdateNote from '../components/notes/UpdateNote';
-// import useHttp from '../hooks/use-http';
-// import { editNote } from '../lib/api';
+import useHttp from '../hooks/use-http';
+// import { editNote} from '../lib/api';
 
 const EditNote = () => {
 
