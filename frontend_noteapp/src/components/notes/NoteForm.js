@@ -1,82 +1,40 @@
-import { Fragment, useRef, useState } from "react";
-import { useActionData } from "react-router-dom";
-import Card from "../UI/Card";
-import LoadingSpinner from "../UI/LoadingSpinner";
+import { useActionData, useNavigate } from "react-router-dom";
 import classes from "./NoteForm.module.css";
 
 const NoteForm = (props) => {
-  const [isEntering, setIsEntering] = useState(false);
-  // const data = useActionData();
-
-  const titleInputRef = useRef();
-  const contentInputRef = useRef();
-
-  const sumbitNoteHandler = (event) => {
-    event.preventDefault();
-    const enteredTitle = titleInputRef.current.value;
-    const enteredContent = contentInputRef.current.value;
-
-    props.onAdd({ title: enteredTitle, content: enteredContent });
-  };
-
-  const formFocusHandler = () => {
-    console.log("Focus!");
-    setIsEntering(true);
-  };
-
-  const finishEnteringHandler = () => {
-    setIsEntering(false);
-  };
-
-  let message =
-    "Are you shure you want to leave the form? All your data will be lost!!!";
+  const navigate = useNavigate();
+  function cancelHandler() {
+    navigate("..");
+  }
 
   return (
-    <Fragment>
-      <Card>
-        {/* <Prompt when={isEntering} message={(location) => message} /> */}
-        {/* {data && data.errors && (
+    <>
+      {/* {data && data.errors && (
         <ul>
           {Object.values(data.errors).map((err) => (
             <li key={err}>{err}</li>
           ))}
         </ul>
       )} */}
-        <form
-          onSubmit={sumbitNoteHandler}
-          onFocus={formFocusHandler}
-          className={classes.form}
-        >
-          {props.isLoading && (
-            <div className={classes.loading}>
-              <LoadingSpinner />
-            </div>
-          )}
-          <div>
-            <input
-              type="text"
-              id="title"
-              ref={titleInputRef}
-              placeholder="Title ..."
-            />
-          </div>
-          <div>
-            <textarea
-              type="text"
-              id="content"
-              ref={contentInputRef}
-              rows="3"
-              maxLength="280"
-              placeholder="Content ..."
-            />
-          </div>
+      <form className={classes.form}>
+        <p>
+          <label htmlFor="title">Title</label>
+          <input id="title" type="text" name="title" required />
+        </p>
 
-          <div>
-            <button onClick={finishEnteringHandler}> Add</button>
-          </div>
-        </form>
-      </Card>
-    </Fragment>
+        <p>
+          <label htmlFor="content">Content</label>
+          <textarea id="content" type="text" name="content" required />
+        </p>
+
+        <div className={classes.actions}>
+          <button type="button" onClick={cancelHandler}>
+            Cancel
+          </button>
+          <button>Save</button>
+        </div>
+      </form>
+    </>
   );
 };
 

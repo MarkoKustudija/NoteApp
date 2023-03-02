@@ -1,41 +1,40 @@
 import { Fragment } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import Footer from "./Footer";
 import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-
-  const {id}  = useParams();
-
   return (
     <Fragment>
       <header className={classes.header}>
         <div className={classes.logo}> NoteApp </div>
-        <nav className={classes.nav}>
-          <ul>
+        <nav>
+          <ul className={classes.list}>
             <li>
-              <NavLink to="/home" activeClassName={classes.active}>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+                end
+              >
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/notes" activeClassName={classes.active}>
+              <NavLink
+                to="/notes"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
                 Notes
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/new-note" activeClassName={classes.active}>
-                New Note
-              </NavLink>
-            </li>
-
-            {/* <li>
-              <NavLink to ="/update-note/:id" activeClassName={classes.active}>
-                Update Note
-              </NavLink>
-            </li> */}
           </ul>
         </nav>
       </header>
+      <Footer />
     </Fragment>
   );
 };

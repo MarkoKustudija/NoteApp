@@ -1,48 +1,37 @@
-import { Fragment, useEffect } from "react";
-import useHttp from "../hooks/use-http";
-import { getAllNotes} from "../lib/api";
-import LoadingSpinner from "../components/UI/LoadingSpinner";
-import NoNotesFound from "../components/notes/NoNotesFound";
-import NoteList from "../components/notes/NoteList";
+import { Link } from "react-router-dom";
 
+
+const DUMMY_NOTES = [
+  {
+    id: 'e1',
+    title: 'Some note',
+    content: 'aaaa',
+  },
+  {
+    id: 'e2',
+    title: 'Another note',
+    content: 'bbbbb',
+  },
+];
 const AllNotes = (props) => {
 
-  const {
-    sendRequest,
-    status,
-    data: loadedNotes,
-    error,
-  } = useHttp(getAllNotes, true);
 
+  // const data = useLoaderData();
+  // const events = data.events;
 
-
-  useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
-
-
-  if (status === "pending") {
-    return (
-      <div className="centered">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-
-
-  if (error) {
-    return <p className="centered focused">{error}</p>;
-  }
-
-  if (status === "completed" && (!loadedNotes || loadedNotes.length === 0)) {
-    return <NoNotesFound />;
-  }
+  // return <NoteList events={events} />;
 
   return (
-    <Fragment>
-      <NoteList notes={loadedNotes} />
-    </Fragment>
+    <>
+      <h1>Notes Page</h1>
+      <ul>
+        {DUMMY_NOTES.map((note) => (
+          <li key={note.id}>
+            <Link to={note.id}>{note.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

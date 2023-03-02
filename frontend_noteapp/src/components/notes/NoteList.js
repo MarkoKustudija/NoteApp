@@ -1,50 +1,20 @@
-import { Fragment, useEffect} from "react";
-import { redirect, useNavigate } from "react-router-dom";
-// import { useHistory } from "react-router-dom";
-import useHttp from "../../hooks/use-http";
-import { deleteNote } from "../../lib/api";
-import Note from "./Note";
-
-const NoteList = (props) => {
-
-  // const history = useHistory();
-   const navigate = useNavigate();
-  
-
-  const { sendRequest, status } = useHttp(deleteNote);
-
-  const deleteNoteHandler = (noteId) => {
-    sendRequest(noteId);
-  };
-
-  const editNoteHandler = (noteId) => {
-    navigate(`/update-note/${noteId}`);
-  };
-
-  useEffect(() => {
-    if (status === "completed") {
-      navigate("/home");
-    }
-    // if (status === "pending") {
-    //   history.push("/notes");
-    // }
-  }, [status, navigate]);
-
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
+const NoteList = ({ notes }) => {
   return (
     <Fragment>
+      <h1> All Notes</h1>
       <ul>
-        {props.notes.map((note, index) => {
-          return (
-            <Note
-              key={note.id}
-              id={note.id}
-              title={note.title}
-              content={note.content}
-              onDelete={deleteNoteHandler}
-              onEdit={editNoteHandler}
-            />
-          );
-        })}
+        {notes.map((note) => (
+          <li key={note.id}>
+            <Link to={`/notes/${note.id}`}>
+              <div>
+                title={note.title}
+                content={note.content}
+              </div>
+            </Link>
+          </li>
+        ))}
       </ul>
     </Fragment>
   );
