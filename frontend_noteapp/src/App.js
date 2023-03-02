@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Navigate, Redirect, Route, Routes, Switch } from "react-router-dom";
 import Header from "./components/layout/Header";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
@@ -76,32 +76,14 @@ function App() {
   return (
     <NoteProvider>
       <Header>
-        <Switch>
-          <Route path="/home" exact>
-            <Home />
-          </Route>
-
-          <Route path="/" exact>
-            <Redirect to="/home" />
-          </Route>
-
-          <Route path="/new-note" exact>
-            <NewNote />
-          </Route>
-
-          <Route path="/update-note/:id" exact>
-            <UpdateNote />
-            {/* <EditNote /> */}
-          </Route>
-
-          <Route path="/notes" exact>
-            <AllNotes />
-          </Route>
-
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/notes" element={<AllNotes />} />
+          <Route path="/new-note" element={<NewNote />} />
+          <Route path="/update-note/:id" element={<UpdateNote />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Header>
     </NoteProvider>
   );

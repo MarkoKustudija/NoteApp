@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { redirect, useHistory, useNavigate } from "react-router-dom";
 import NoteForm from "../components/notes/NoteForm";
 import useHttp from "../hooks/use-http";
 import { addNote } from "../lib/api";
@@ -8,13 +8,14 @@ import { addNote } from "../lib/api";
 const NewNote = () => {
 
     const {sendRequest, status} = useHttp(addNote);
-    const history = useHistory();
+    // const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(status === 'completed'){
-            history.push('/notes')
+            navigate('/notes')
         }
-    },[status, history])
+    },[status, navigate])
 
     const addNoteHandler = (noteData) => {
         sendRequest(noteData);

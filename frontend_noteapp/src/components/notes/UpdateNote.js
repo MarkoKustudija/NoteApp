@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Fragment, useRef, useState } from "react";
-import { Prompt, useHistory, useParams } from "react-router-dom";
+import {redirect, useNavigate, useParams } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -16,7 +16,8 @@ const UpdateNote = (props) => {
   const [noteId, setNoteId] = useState(id);
   const titleInputRef = useRef();
   const contentInputRef = useRef();
-  const history = useHistory();
+  // const history = useHistory();
+  const navigate = useNavigate();
 
   
 
@@ -41,9 +42,9 @@ const UpdateNote = (props) => {
 
     useEffect(() => {
         if(status === 'completed'){
-            history.push('/notes')
+            navigate('/notes')
         }
-    },[status, history])
+    },[status, navigate])
 
 
 
@@ -73,7 +74,7 @@ const UpdateNote = (props) => {
   return (
     <Fragment>
       <Card>
-        <Prompt when={isEntering} message={(location) => message} />
+        {/* <Prompt when={isEntering} message={(location) => message} /> */}
         <form
           onSubmit={sumbitNoteHandler}
           onFocus={formFocusHandler}

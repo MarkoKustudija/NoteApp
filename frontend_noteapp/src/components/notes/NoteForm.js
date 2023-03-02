@@ -1,11 +1,12 @@
 import { Fragment, useRef, useState } from "react";
-import { Prompt } from "react-router-dom";
+import { useActionData } from "react-router-dom";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./NoteForm.module.css";
 
 const NoteForm = (props) => {
   const [isEntering, setIsEntering] = useState(false);
+  // const data = useActionData();
 
   const titleInputRef = useRef();
   const contentInputRef = useRef();
@@ -33,7 +34,14 @@ const NoteForm = (props) => {
   return (
     <Fragment>
       <Card>
-        <Prompt when={isEntering} message={(location) => message} />
+        {/* <Prompt when={isEntering} message={(location) => message} /> */}
+        {/* {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((err) => (
+            <li key={err}>{err}</li>
+          ))}
+        </ul>
+      )} */}
         <form
           onSubmit={sumbitNoteHandler}
           onFocus={formFocusHandler}
