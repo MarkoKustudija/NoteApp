@@ -1,22 +1,35 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
-const NoteList = ({ notes }) => {
+import { Link, useLoaderData } from "react-router-dom";
+import classes from "./NotesList.module.css";
+import NoteItem from "./NoteItem";
+
+const NoteList = ({notes}) => {
+
   return (
-    <Fragment>
-      <h1> All Notes</h1>
-      <ul>
-        {notes.map((note) => (
-          <li key={note.id}>
-            <Link to={`/notes/${note.id}`}>
-              <div>
-                title={note.title}
-                content={note.content}
-              </div>
-            </Link>
-          </li>
-        ))}
+    <div className={classes.notes}>
+      <ul className={classes.list}>
+        {notes.map((note) => {
+          return (
+            <li key={note.id} className={classes.item}>
+              {/* <Link to={`/notes/${note.id}`}> */}
+              {/* <Link to = {note.id}> */}
+                {/* <div>
+                  <h2>Title : {note.title}</h2>
+                  <h2>Content: {note.content}</h2>
+                </div> */}
+
+                <NoteItem
+                  key={note.id}
+                  id={note.id}
+                  title={note.title}
+                  content={note.content}
+                />
+              {/* </Link> */}
+            </li>
+          );
+        })}
       </ul>
-    </Fragment>
+    </div>
   );
 };
 

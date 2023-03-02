@@ -1,39 +1,47 @@
-import { useActionData, useNavigate } from "react-router-dom";
+import { Form, useActionData, useNavigate, useNavigation } from "react-router-dom";
 import classes from "./NoteForm.module.css";
 
-const NoteForm = (props) => {
+const NoteForm = ({method, note}) => {
+
   const navigate = useNavigate();
+  const data = useActionData();
+  const navigation = useNavigation();
+
+
+  const isSubmitting = navigation.state === "submitting";
   function cancelHandler() {
     navigate("..");
   }
 
   return (
     <>
-      {/* {data && data.errors && (
+      {data && data.errors && (
         <ul>
           {Object.values(data.errors).map((err) => (
             <li key={err}>{err}</li>
           ))}
         </ul>
-      )} */}
-      <form className={classes.form}>
+      )}
+      <Form method = {method} className={classes.form}>
         <p>
           <label htmlFor="title">Title</label>
-          <input id="title" type="text" name="title" required />
+          <input id="title" type="text" name="title" required defaultValue={note ? note.title : ''}/>
         </p>
 
         <p>
           <label htmlFor="content">Content</label>
-          <textarea id="content" type="text" name="content" required />
+          <textarea id="content" type="text" name="content" required defaultValue={note ? note.content : ''}/>
         </p>
 
         <div className={classes.actions}>
-          <button type="button" onClick={cancelHandler}>
-            Cancel
-          </button>
-          <button>Save</button>
-        </div>
-      </form>
+        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
+          Cancel
+        </button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting...' : 'Save'}
+        </button>
+      </div>
+      </Form>
     </>
   );
 };

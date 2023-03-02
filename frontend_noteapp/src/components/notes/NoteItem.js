@@ -1,29 +1,36 @@
-import { Link, useSubmit } from "react-router-dom";
+import { Link, useNavigate, useSubmit } from "react-router-dom";
 import classes from "./NoteItem.module.css";
 
-const NoteItem = (props) => {
+const NoteItem = (note) => {
 
   const submit = useSubmit();
 
-  function deleteHandler() {
+  // const navigate = useNavigate();
 
-    const proceed = window.confirm('Are you sure?');
+  function startDeleteHandler() {
+    const proceed = window.confirm("Are you sure you want to delete this note?");
 
     if (proceed) {
-      submit(null, { method: 'delete' });
+      submit(null, { method: "delete" });
     }
   }
 
+  // function editHandler() {
+  //   navigate('/notes/new')
+
+  // }
+
   return (
-    <div className={classes.note}>
-      <h1>{props.title}</h1>
-      <p>{props.content}</p>
+    <article className={classes.note}>
+      <h1>Title: {note.title}</h1>
+      <p> Content: {note.content}</p>
       <menu className={classes.actions}>
-        <Link to="edit">Edit</Link>
-        <button onClick={deleteHandler}>Delete</button>
+        <Link to=":id/edit">Edit</Link>
+        <button onClick={startDeleteHandler}>Delete</button>
       </menu>
-    </div>
+    </article>
   );
+  
 };
 
 export default NoteItem;

@@ -18,7 +18,7 @@ const MainNavigation = () => {
                 }
                 end
               >
-                Home
+               <h1>Home</h1> 
               </NavLink>
             </li>
             <li>
@@ -27,8 +27,10 @@ const MainNavigation = () => {
                 className={({ isActive }) =>
                   isActive ? classes.active : undefined
                 }
+                end
               >
-                Notes
+                
+                <h1>Notes</h1> 
               </NavLink>
             </li>
           </ul>

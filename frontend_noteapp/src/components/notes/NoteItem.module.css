@@ -1,6 +1,35 @@
+.note {
+  max-width: 50rem;
+  margin: 2rem auto;
+  text-align: center;
+
+}
 
 
-  .note {
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.actions a,
+.actions button {
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.actions button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-primary-800);
+}
+
+
+  /* .note {
     background: #fff;
     border-radius: 7px;
     box-shadow: 0 2px 5px #ccc;
@@ -8,16 +37,19 @@
     width: 240px;
     margin: 16px;
     float: left;
+    
   }
   .note h1 {
     font-size: 1.1em;
     margin-bottom: 6px;
+    color: red;
   }
   .note p {
     font-size: 1.1em;
     margin-bottom: 10px;
     white-space: pre-wrap;
     word-wrap: break-word;
+    color: red;
   }
 
   
@@ -35,7 +67,7 @@
     cursor: pointer;
     outline: none;
     float: right;
-  }
+  } */
   
   
 
