@@ -1,7 +1,5 @@
-import React, { Suspense } from "react";
+
 import {
-  Await,
-  defer,
   json,
   redirect,
   useRouteLoaderData,
@@ -18,19 +16,6 @@ function NoteDetail() {
 
   return (
     <NoteItem note={data.note} />
-    // <>
-    //   <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-    //     <Await resolve={note}>
-    //       {(loadedNote) => <NoteItem note={loadedNote} />}
-    //     </Await>
-    //   </Suspense>
-
-    //   <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-    //     <Await resolve={notes}>
-    //       {(loadedNotes) => <NoteList notes = {loadedNotes} />}
-    //     </Await>
-    //   </Suspense>
-    // </>
   );
 }
 
