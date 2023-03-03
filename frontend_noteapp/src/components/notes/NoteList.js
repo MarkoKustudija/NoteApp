@@ -11,20 +11,19 @@ const NoteList = ({notes}) => {
         {notes.map((note) => {
           return (
             <li key={note.id} className={classes.item}>
-              {/* <Link to={`/notes/${note.id}`}> */}
-              {/* <Link to = {note.id}> */}
-                {/* <div>
+              <Link to={`/notes/${note.id}`}>
+                <div>
                   <h2>Title : {note.title}</h2>
                   <h2>Content: {note.content}</h2>
-                </div> */}
+                </div>
 
-                <NoteItem
+                {/* <NoteItem
                   key={note.id}
                   id={note.id}
                   title={note.title}
                   content={note.content}
-                />
-              {/* </Link> */}
+                /> */}
+              </Link>
             </li>
           );
         })}

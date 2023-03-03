@@ -1,7 +1,18 @@
-import { Link, useNavigate, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useSubmit } from "react-router-dom";
 import classes from "./NoteItem.module.css";
 
-const NoteItem = (note) => {
+const NoteItem = ({note}) => {
+
+  
+
+  useEffect(() => {
+    console.log({"title: " : note.title, "content" : note.content});
+    //  return note;
+     
+  })
+  
+
 
   const submit = useSubmit();
 
@@ -21,12 +32,13 @@ const NoteItem = (note) => {
   // }
 
   return (
-    <article className={classes.note}>
-      <h1>Title: {note.title}</h1>
-      <p> Content: {note.content}</p>
+    <article className={classes.item}>
+      <h2>Title: {note.title}</h2>
+      <h2> Content: {note.content}</h2>
       <menu className={classes.actions}>
-        <Link to=":id/edit">Edit</Link>
-        <button onClick={startDeleteHandler}>Delete</button>
+        {/* <Link to=":id/edit">Edit</Link> */}
+        <Link to="edit"><h3>Edit</h3></Link>
+        <button onClick={startDeleteHandler}><h3>Delete</h3></button>
       </menu>
     </article>
   );

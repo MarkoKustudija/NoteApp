@@ -60,14 +60,26 @@ const router = createBrowserRouter([
             element: <AllNotes />,
             loader: notesLoader,
           },
+         
           {
             path: ':id',
-            element: <NoteDetail />,
+            id: "note-detail",
             loader: noteDetailLoader,
-            action: deleteNoteAction,
+            children: [
+              {
+              index: true,
+              element: <NoteDetail />,
+              action: deleteNoteAction,
+              },
+              { 
+                 path: 'edit',
+                 element: <EditNote /> },
+            ]
+           
           },
           { path: 'new', element: <NewNote /> },
-          { path: ':id/edit', element: <EditNote /> },
+          
+          
         ],
       },
     ],
