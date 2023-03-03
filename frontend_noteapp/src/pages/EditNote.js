@@ -1,29 +1,14 @@
 
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import UpdateNote from '../components/notes/UpdateNote';
-import useHttp from '../hooks/use-http';
-// import { editNote} from '../lib/api';
+
+import { useRouteLoaderData } from 'react-router-dom';
+import NoteForm from '../components/notes/NoteForm';
 
 const EditNote = () => {
 
-    // const {sendRequest, status} = useHttp(editNote);
-    // const history = useHistory();
-
-    // useEffect(() => {
-    //     if(status === 'completed'){
-    //         history.push('/notes')
-    //     }
-    // },[status, history])
-
-    // const editNoteHandler = (noteData) => {
-    //     sendRequest(noteData);
-    //     console.log(noteData);
-    // }
+    const data = useRouteLoaderData('note-detail');
 
     return ( 
-        // <UpdateNote isLoading = {status === 'pending'}  onEdit  = {editNoteHandler}/>
-        <UpdateNote />
+        <NoteForm method="put" note = {data.note}/>
      );
 }
  

@@ -1,75 +1,87 @@
-import { Fragment, useRef, useState } from "react";
-import { Prompt } from "react-router-dom";
-import Card from "../UI/Card";
-import LoadingSpinner from "../UI/LoadingSpinner";
+import { Form, json, redirect, useActionData, useNavigate, useNavigation } from "react-router-dom";
 import classes from "./NoteForm.module.css";
 
-const NoteForm = (props) => {
-  const [isEntering, setIsEntering] = useState(false);
+const NoteForm = ({method, note}) => {
 
-  const titleInputRef = useRef();
-  const contentInputRef = useRef();
+  const navigate = useNavigate();
+  const data = useActionData();
+  const navigation = useNavigation();
 
-  const sumbitNoteHandler = (event) => {
-    event.preventDefault();
-    const enteredTitle = titleInputRef.current.value;
-    const enteredContent = contentInputRef.current.value;
 
-    props.onAdd({ title: enteredTitle, content: enteredContent });
-  };
-
-  const formFocusHandler = () => {
-    console.log("Focus!");
-    setIsEntering(true);
-  };
-
-  const finishEnteringHandler = () => {
-    setIsEntering(false);
-  };
-
-  let message =
-    "Are you shure you want to leave the form? All your data will be lost!!!";
+  const isSubmitting = navigation.state === "submitting";
+  function cancelHandler() {
+    navigate("..");
+  }
 
   return (
-    <Fragment>
-      <Card>
-        <Prompt when={isEntering} message={(location) => message} />
-        <form
-          onSubmit={sumbitNoteHandler}
-          onFocus={formFocusHandler}
-          className={classes.form}
-        >
-          {props.isLoading && (
-            <div className={classes.loading}>
-              <LoadingSpinner />
-            </div>
-          )}
-          <div>
-            <input
-              type="text"
-              id="title"
-              ref={titleInputRef}
-              placeholder="Title ..."
-            />
-          </div>
-          <div>
-            <textarea
-              type="text"
-              id="content"
-              ref={contentInputRef}
-              rows="3"
-              maxLength="280"
-              placeholder="Content ..."
-            />
-          </div>
+    <>
+      {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((err) => (
+            <li key={err}>{err}</li>
+          ))}
+        </ul>
+      )}
+      <Form method = {method} className={classes.form}>
+        <p>
+          <label htmlFor="title">Title</label>
+          <input id="title" type="text" name="title" required defaultValue={note ? note.title : ''}/>
+        </p>
 
-          <div>
-            <button onClick={finishEnteringHandler}> Add</button>
-          </div>
-        </form>
-      </Card>
-    </Fragment>
+        <p>
+          <label htmlFor="content">Content</label>
+          <textarea id="content" type="text" name="content" required defaultValue={note ? note.content : ''}/>
+        </p>
+
+        <div className={classes.actions}>
+        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
+          Cancel
+        </button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting...' : 'Save'}
+        </button>
+      </div>
+      </Form>
+    </>
   );
 };
 
 export default NoteForm;
+
+
+// Shared function for ADD and EDIT
+
+export async function action({ request, params }) {
+  const method = request.method;
+  const data = await request.formData();
+
+  const noteData = {
+    title: data.get('title'),
+    content: data.get('content')
+  };
+
+  let url = 'http://localhost:8080/notes';
+
+  if (method === 'PUT') {
+    const id = params.id;
+    url = 'http://localhost:8080/notes/' + id;
+  }
+
+  const response = await fetch(url, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(noteData),
+  });
+
+  if (response.status === 422) {
+    return response;
+  }
+
+  if (!response.ok) {
+    throw json({ message: 'Could not save note.' }, { status: 500 });
+  }
+
+  return redirect('/notes');
+}

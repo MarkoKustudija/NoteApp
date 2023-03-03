@@ -1,49 +1,31 @@
-import { Fragment, useEffect } from "react";
-import useHttp from "../hooks/use-http";
-import { getAllNotes} from "../lib/api";
-import LoadingSpinner from "../components/UI/LoadingSpinner";
-import NoNotesFound from "../components/notes/NoNotesFound";
+
+import {json, useLoaderData } from "react-router-dom";
 import NoteList from "../components/notes/NoteList";
 
-const AllNotes = (props) => {
+const AllNotes = () => {
 
-  const {
-    sendRequest,
-    status,
-    data: loadedNotes,
-    error,
-  } = useHttp(getAllNotes, true);
+  const data = useLoaderData();
 
-
-
-  useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
-
-
-  if (status === "pending") {
-    return (
-      <div className="centered">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-
-
-  if (error) {
-    return <p className="centered focused">{error}</p>;
-  }
-
-  if (status === "completed" && (!loadedNotes || loadedNotes.length === 0)) {
-    return <NoNotesFound />;
-  }
-
-  return (
-    <Fragment>
-      <NoteList notes={loadedNotes} />
-    </Fragment>
-  );
+  
+  return(
+    <NoteList notes = {data} />
+  )
 };
 
 export default AllNotes;
+
+export async function loader() {
+
+  const response = await fetch('http://localhost:8080/notes');
+
+  if (!response.ok) {
+    throw json(
+      { message: 'Could not fetch notes.' },
+      {
+        status: 500,
+      }
+    );
+  } else {
+    return response;
+  }
+}
