@@ -4,11 +4,9 @@ import {
   defer,
   json,
   redirect,
-  useLoaderData,
   useRouteLoaderData,
 } from "react-router-dom";
 import NoteItem from "../components/notes/NoteItem";
-// import NoteList from "../components/notes/NoteList";
 
 function NoteDetail() {
   const data = useRouteLoaderData("note-detail");

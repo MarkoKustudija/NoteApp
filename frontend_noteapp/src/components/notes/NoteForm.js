@@ -1,4 +1,4 @@
-import { Form, useActionData, useNavigate, useNavigation } from "react-router-dom";
+import { Form, json, redirect, useActionData, useNavigate, useNavigation } from "react-router-dom";
 import classes from "./NoteForm.module.css";
 
 const NoteForm = ({method, note}) => {
@@ -47,3 +47,41 @@ const NoteForm = ({method, note}) => {
 };
 
 export default NoteForm;
+
+
+// Shared function for ADD and EDIT
+
+export async function action({ request, params }) {
+  const method = request.method;
+  const data = await request.formData();
+
+  const noteData = {
+    title: data.get('title'),
+    content: data.get('content')
+  };
+
+  let url = 'http://localhost:8080/notes';
+
+  if (method === 'PUT') {
+    const id = params.id;
+    url = 'http://localhost:8080/notes/' + id;
+  }
+
+  const response = await fetch(url, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(noteData),
+  });
+
+  if (response.status === 422) {
+    return response;
+  }
+
+  if (!response.ok) {
+    throw json({ message: 'Could not save note.' }, { status: 500 });
+  }
+
+  return redirect('/notes');
+}
