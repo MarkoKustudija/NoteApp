@@ -9,7 +9,7 @@ This app is still in progres...
 <img width="1335" alt="noteapp" src="https://user-images.githubusercontent.com/81296935/214597136-3fcdfbe1-f0d3-4cee-befd-2af4ce839522.png">
 
 
-<h3> Upgrading from project from router@5 to router@6 </h3>
+<h3> Upgrading project from router@5 to router@6 </h3>
 <img width="1190" alt="Screenshot 2023-03-03 at 11 38 05" src="https://user-images.githubusercontent.com/81296935/222704510-e7610ab2-fa60-444c-9b6b-c4aa0bb1eeec.png">
 
 
